@@ -25,9 +25,23 @@
         font-family: "IBM Plex Sans", Arial, sans-serif;
       }
 
+      .window {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: min(1100px, calc(100% - 32px));
+        max-height: calc(100vh - 32px);
+        overflow: auto;
+        background: #1d1c1c;
+        border: 1px solid #3d3a3a;
+        box-shadow: 0 24px 70px rgb(0 0 0 / 35%);
+        transform: translate(-50%, -50%);
+      }
+
       .page {
-        width: min(1100px, calc(100% - 48px));
-        min-height: 100vh;
+        width: 100%;
+        min-height: auto;
+        padding: 0 24px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -39,6 +53,12 @@
         justify-content: space-between;
         padding: 32px 0;
         border-bottom: 1px solid #3d3a3a;
+        cursor: grab;
+        user-select: none;
+      }
+
+      header:active {
+        cursor: grabbing;
       }
 
       .logo {
@@ -116,7 +136,7 @@
 
       @media (max-width: 760px) {
         .page {
-          width: min(100% - 32px, 1100px);
+          padding: 0 16px;
         }
 
         header {
@@ -138,31 +158,64 @@
   </head>
 
   <body>
-    <div class="page">
-      <header>
-        <p class="logo">malOS</p>
-        <span class="status">Simple by design</span>
-      </header>
+    <div class="window">
+      <div class="page">
+        <header>
+          <p class="logo">malOS</p>
+          <span class="status">Simple by design</span>
+        </header>
 
-      <main>
-        <section>
-          <p class="eyebrow">Welcome to my OS</p>
-          <h1>Less flash.<br />More focus.</h1>
-          <p class="intro">
-            A simple operating system made for people who prefer no fun or
-            flavor.
-          </p>
-        </section>
+        <main>
+          <section>
+            <p class="eyebrow">Welcome to my OS</p>
+            <h1>Less flash.<br />More focus.</h1>
+            <p class="intro">
+              A simple operating system made for people who prefer no fun or
+              flavor.
+            </p>
+          </section>
 
-        <div class="art">
-          <img src="./planet.png.png" alt="Line drawing of a planet" />
-        </div>
-      </main>
+          <div class="art">
+            <img src="./planet.png.png" alt="Line drawing of a planet" />
+          </div>
+        </main>
 
-      <footer>
-        <span>hello, world!</span>
-        <span>malOS</span>
-      </footer>
+        <footer>
+          <span>hellllloooooo!</span>
+          <span>malOS</span>
+        </footer>
+      </div>
     </div>
+
+    <script>
+      const windowElement = document.querySelector(".window");
+      const dragHandle = document.querySelector("header");
+      let offsetX = 0;
+      let offsetY = 0;
+
+      dragHandle.addEventListener("pointerdown", (event) => {
+        const bounds = windowElement.getBoundingClientRect();
+
+        windowElement.style.left = `${bounds.left}px`;
+        windowElement.style.top = `${bounds.top}px`;
+        windowElement.style.transform = "none";
+        offsetX = event.clientX - bounds.left;
+        offsetY = event.clientY - bounds.top;
+        dragHandle.setPointerCapture(event.pointerId);
+      });
+
+      dragHandle.addEventListener("pointermove", (event) => {
+        if (!dragHandle.hasPointerCapture(event.pointerId)) {
+          return;
+        }
+
+        windowElement.style.left = `${event.clientX - offsetX}px`;
+        windowElement.style.top = `${event.clientY - offsetY}px`;
+      });
+
+      dragHandle.addEventListener("pointerup", (event) => {
+        dragHandle.releasePointerCapture(event.pointerId);
+      });
+    </script>
   </body>
 </html>
