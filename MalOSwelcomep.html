@@ -11,8 +11,21 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-
     <style>
+      .close-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 50%;
+        background: #3d3a3a;
+        color: #f4f2ef;
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+      }
       * {
         box-sizing: border-box;
       }
@@ -158,7 +171,16 @@
   </head>
 
   <body>
-    <div class="window">
+    <div class="window" id="welcome-window">
+      <button
+        class="close-button"
+        onclick="
+          document.querySelector('#welcome-window').style.display = 'none'
+        "
+        aria-label="Close welcome window"
+      >
+        &times;
+      </button>
       <div class="page">
         <header>
           <p class="logo">malOS</p>
@@ -168,7 +190,7 @@
         <main>
           <section>
             <p class="eyebrow">Welcome to my OS</p>
-            <h1>Less flash.<br />More focus.</h1>
+            <h1>Lock in.<br />Focus.</h1>
             <p class="intro">
               A simple operating system made for people who prefer no fun or
               flavor.
