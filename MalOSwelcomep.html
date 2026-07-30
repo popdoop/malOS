@@ -1,9 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script type="module" src="./script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>malOS</title>
+    <title>MalOS</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,17 +63,18 @@
         flex-direction: column;
       }
 
-      header {
+      .drag-handle {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 32px 0;
         border-bottom: 1px solid #3d3a3a;
         cursor: grab;
+        touch-action: none;
         user-select: none;
       }
 
-      header:active {
+      .drag-handle:active {
         cursor: grabbing;
       }
 
@@ -152,7 +156,7 @@
           padding: 0 16px;
         }
 
-        header {
+        .drag-handle {
           padding: 24px 0;
         }
 
@@ -174,15 +178,13 @@
     <div class="window" id="welcome-window">
       <button
         class="close-button"
-        onclick="
-          document.querySelector('#welcome-window').style.display = 'none'
-        "
+        type="button"
         aria-label="Close welcome window"
       >
         &times;
       </button>
       <div class="page">
-        <header>
+        <header class="drag-handle">
           <p class="logo">malOS</p>
           <span class="status">cookies n crean</span>
         </header>
@@ -208,37 +210,6 @@
         </footer>
       </div>
     </div>
-
-    <script>
-      const windowElement = document.querySelector(".window");
-      const dragHandle = document.querySelector("header");
-      let offsetX = 0;
-      let offsetY = 0;
-
-      dragHandle.addEventListener("pointerdown", (event) => {
-        const bounds = windowElement.getBoundingClientRect();
-
-        windowElement.style.left = `${bounds.left}px`;
-        windowElement.style.top = `${bounds.top}px`;
-        windowElement.style.transform = "none";
-        offsetX = event.clientX - bounds.left;
-        offsetY = event.clientY - bounds.top;
-        dragHandle.setPointerCapture(event.pointerId);
-      });
-
-      dragHandle.addEventListener("pointermove", (event) => {
-        if (!dragHandle.hasPointerCapture(event.pointerId)) {
-          return;
-        }
-
-        windowElement.style.left = `${event.clientX - offsetX}px`;
-        windowElement.style.top = `${event.clientY - offsetY}px`;
-      });
-
-      dragHandle.addEventListener("pointerup", (event) => {
-        dragHandle.releasePointerCapture(event.pointerId);
-      });
-    </script>
 
     <script>
       function updatetime() {
@@ -278,5 +249,79 @@
         MalOS
       </p>
     </div>
+
+    <p class="icon-ting open-button" data-window="welcome-window">
+      <img src="./planet.png.png" alt="Line drawing of a planet" width="50" />
+      <span>MalOS</span>
+    </p>
+
+    <style>
+      .icon-ting {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin-left: 20px;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      let topWindowLevel = 1;
+
+      document.querySelectorAll(".open-button").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var windowId = button.dataset.window;
+          var windowElement = document.getElementById(windowId);
+
+          windowElement.style.display = "block";
+          topWindowLevel += 1;
+          windowElement.style.zIndex = topWindowLevel;
+        });
+      });
+
+      document.querySelectorAll(".close-button").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var windowElement = button.closest(".window");
+          windowElement.style.display = "none";
+        });
+      });
+
+      document.querySelectorAll(".window").forEach(function (windowElement) {
+        var dragHandle = windowElement.querySelector(".drag-handle");
+        var offsetX = 0;
+        var offsetY = 0;
+
+        if (!dragHandle) {
+          return;
+        }
+
+        dragHandle.addEventListener("pointerdown", function (event) {
+          var bounds = windowElement.getBoundingClientRect();
+
+          topWindowLevel += 1;
+          windowElement.style.zIndex = topWindowLevel;
+          windowElement.style.left = bounds.left + "px";
+          windowElement.style.top = bounds.top + "px";
+          windowElement.style.transform = "none";
+          offsetX = event.clientX - bounds.left;
+          offsetY = event.clientY - bounds.top;
+          dragHandle.setPointerCapture(event.pointerId);
+        });
+
+        dragHandle.addEventListener("pointermove", function (event) {
+          if (!dragHandle.hasPointerCapture(event.pointerId)) {
+            return;
+          }
+
+          windowElement.style.left = event.clientX - offsetX + "px";
+          windowElement.style.top = event.clientY - offsetY + "px";
+        });
+
+        dragHandle.addEventListener("pointerup", function (event) {
+          dragHandle.releasePointerCapture(event.pointerId);
+        });
+      });
+    </script>
   </body>
 </html>
