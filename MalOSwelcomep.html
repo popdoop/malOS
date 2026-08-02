@@ -228,6 +228,21 @@
       Time
     </p>
 
+    <img
+      src="./eye.png"
+      alt="Eye"
+      draggable="false"
+      width="700"
+      style="
+        position: fixed;
+        top: 40px;
+        right: 100px;
+        z-index: 0;
+        user-select: none;
+        pointer-events: none;
+        filter: brightness(50%);
+      "
+    />
     <div
       style="
         display: flex;
@@ -256,6 +271,11 @@
     </p>
 
     <p class="icon-ting open-button" data-window="minky-window">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzijJIwT8GNKLd2Nr9JQtk4oG75MmawPb3Ka60dKX7WQ&s=10"
+        alt="Minky"
+        width="40"
+      />
       <span>Minky</span>
     </p>
 
@@ -270,33 +290,140 @@
 
       <div class="page">
         <header class="drag-handle">
-          <p class="logo">Minky</p>
-          <span class="status">App</span>
+          <span class="status">minky</span>
         </header>
+        <div class="minky-gallery">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW9ZwC6TboSulNYUwsx4ggrNehb9Fc_GtaAvtaLYMPug&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRabS3qy4AQ1QT551pbylTVtHY8vgTCpvjI3NE-G2HL6A&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK0vXM3G4C_ML9tG2zFUULrJlPW_n8WtmCiB1KUr9ulQ&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5CqCFXYI4bNGssJXjljO5jFa6m_FYncfZ_fSuoU-oAA&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAi0oKE1KyaGT5U3RGzJTb9DmSNGvwvO0HMlwnxdg4LA&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmD8ZaJ2DCO_RgAPaDcnZxc7ERqRRaXOZIKdSuFKJLww&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ60xG8SE6d89tspNmZNVgoDIn-OA2okfIilyMYs4WBA&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7wn0Dtb7fPnHSdYo1BL9awbEAwB2Q_yRO4Mo-9IM8SA&s"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqDE0CxiGmcdmX3sukBqXmrqj9YcKqNCWgU4-alw0NGg&s"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2JYwDXZb-dgImVR1g4DSEVC2z2ZZcTkLCtbZqFsiM4g&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnILJQzEmCxZnnMNg-_7c-1XEYi4a2TRCliCb7boU_8w&s=10"
+            alt="Minky gallery image"
+          />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuV5CG8T_-toHBal7t26E50n1XcP8e9Wtwezytoy2qQA&s=10"
+            alt="Minky gallery image"
+          />
+        </div>
 
-        <main>
-          <section>
-            <p class="eyebrow">Minky</p>
-            <h1>Minky</h1>
-            <p class="intro">Your Minky app content goes here.</p>
-          </section>
-        </main>
+        <div class="minky-tracks" hidden>
+          <audio class="window-audio braces-audio" preload="metadata">
+            <source
+              src="./fakemink - Braces (Prod Suzy Sheer) - fakemink (128k).mp3"
+              type="audio/mpeg"
+            />
+          </audio>
+          <audio class="window-audio" preload="metadata">
+            <source
+              src="./fakemink - Easter Pink (Prod Suzy Sheer) - fakemink (128k).mp3"
+              type="audio/mpeg"
+            />
+          </audio>
+        </div>
       </div>
     </div>
 
     <style>
       .icon-ting {
-        display: inline-flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
+        width: fit-content;
         gap: 5px;
         margin-left: 20px;
         color: white;
         cursor: pointer;
       }
+
+      .minky-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        padding: 24px 0;
+      }
+
+      .minky-gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .minky-gallery img:nth-child(3n + 1) {
+        filter: saturate(250%) contrast(140%) hue-rotate(35deg);
+      }
+
+      .minky-gallery img:nth-child(3n + 2) {
+        filter: sepia(90%) saturate(300%) hue-rotate(165deg) contrast(125%);
+      }
+
+      .minky-gallery img:nth-child(3n) {
+        filter: grayscale(100%) invert(85%) contrast(180%);
+      }
+
+      @media (max-width: 650px) {
+        .minky-gallery {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
     </style>
     <script>
       let topWindowLevel = 1;
+      var minkyAudioContext;
+      var minkyAudioGains = new WeakMap();
+
+      function prepareMinkyAudio(audio) {
+        if (!minkyAudioContext) {
+          var AudioContext = window.AudioContext || window.webkitAudioContext;
+          minkyAudioContext = new AudioContext();
+        }
+
+        if (!minkyAudioGains.has(audio)) {
+          var source = minkyAudioContext.createMediaElementSource(audio);
+          var gain = minkyAudioContext.createGain();
+
+          gain.gain.value = audio.classList.contains("braces-audio") ? 1.8 : 1;
+          source.connect(gain);
+          gain.connect(minkyAudioContext.destination);
+          minkyAudioGains.set(audio, gain);
+        }
+      }
 
       document.querySelectorAll(".open-button").forEach(function (button) {
         button.addEventListener("click", function () {
@@ -304,6 +431,18 @@
           var windowElement = document.getElementById(windowId);
 
           windowElement.style.display = "block";
+
+          windowElement
+            .querySelectorAll(".window-audio")
+            .forEach(function (audio) {
+              prepareMinkyAudio(audio);
+              minkyAudioContext.resume();
+              audio.currentTime = 0;
+              audio.play().catch(function () {
+                // Some browsers may require the user to press a play button.
+              });
+            });
+
           topWindowLevel += 1;
           windowElement.style.zIndex = topWindowLevel;
         });
@@ -312,6 +451,14 @@
       document.querySelectorAll(".close-button").forEach(function (button) {
         button.addEventListener("click", function () {
           var windowElement = button.closest(".window");
+
+          windowElement
+            .querySelectorAll(".window-audio")
+            .forEach(function (audio) {
+              audio.pause();
+              audio.currentTime = 0;
+            });
+
           windowElement.style.display = "none";
         });
       });
